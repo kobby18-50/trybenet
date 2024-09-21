@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -61,7 +62,7 @@ class EmployeeController extends Controller
             }
     }
 
-    public function update(CreateCompanyRequest $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
 
         try {
@@ -114,7 +115,7 @@ class EmployeeController extends Controller
             $employee = Employee::where('id', $id)->firstOrFail();
 
             if($employee->photo){
-                Storage::disk('public/photos')->delete($employee->photo);
+                Storage::disk('public')->delete($employee->photo);
             }
 
             $employee->delete();
